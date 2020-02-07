@@ -1,6 +1,6 @@
 # SHA 256 cpp implementation
 
-Test implementation of sha256 based on the [NIST white paper](docs/fips180-4.pdf).
+Test implementation of sha256 based on the [NIST white paper](docs/nist.pdf).
 
 
 #### Future

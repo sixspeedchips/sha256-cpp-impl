@@ -6,10 +6,10 @@
 #define SHA256_CONSTANTS_H
 
 
-const u_int8_t BYTES_PER_INT32 = 4;
-const u_int8_t BYTE_SIZE = 8;
+static const u_int8_t Bytes_per_Int32 = 4;
+static const u_int8_t Byte_Size = 8;
 
-const u_int32_t K[] = {
+static const u_int32_t K[] = {
     0x428a2f98,
     0x71374491,
     0xb5c0fbcf,

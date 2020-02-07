@@ -6,6 +6,7 @@
 #define SHA256_SHA256_H
 
 #include <cstdint>
+#include <vector>
 
 typedef struct _ubit_512 { __uint32_t word[16]; } _ubit_512;
 typedef struct mSchedule { __uint32_t word[64]; } mSchedule;
@@ -31,7 +32,6 @@ struct workingVar {
   __uint32_t f = 0;
   __uint32_t g = 0;
   __uint32_t h = 0;
-
 
 };
 

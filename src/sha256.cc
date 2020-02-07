@@ -24,7 +24,7 @@ void sha256::pad_message() {
     for (unsigned int &word : block.word) {
       // each uint32 number must have the current
       // buffer byte added to it
-      for (int j = 0; j < BYTES_PER_INT32; ++j) {
+      for (int j = 0; j < Bytes_per_Int32; ++j) {
         unsigned char byte = 0x00;
         // if the position in the buffer is not at the end
         if (buffer.size() > cPt) {
@@ -33,7 +33,7 @@ void sha256::pad_message() {
         } else if (buffer.size() == cPt++) {
           byte = 0x80;
         }
-        word = (word << BYTE_SIZE) | byte;
+        word = (word << Byte_Size) | byte;
       }
     }
     // add the block to the padded message
@@ -45,12 +45,12 @@ void sha256::pad_message() {
   // support a 2**64 bit byte array might need to re-impl
   // using file.seek to traverse the file
 //  std::cout << ((buffer.size() * 8 + 1 % 512) < 64) << std::endl;
-  if ((buffer.size() * BYTE_SIZE + 1 % 512) < 64) {
+  if ((buffer.size() * Byte_Size + 1 % 512) < 64) {
     _ubit_512 block{};
-    block.word[15] |= buffer.size() * BYTE_SIZE;
+    block.word[15] |= buffer.size() * Byte_Size;
     padded_message.push_back(block);
   } else {
-    padded_message.back().word[15] |= buffer.size() * BYTE_SIZE;
+    padded_message.back().word[15] |= buffer.size() * Byte_Size;
   }
 }
 
