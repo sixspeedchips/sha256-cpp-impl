@@ -23,6 +23,18 @@ struct hashValues {
   __uint32_t h_7 = 0x5be0cd19;
 };
 
+struct workingVar {
+  __uint32_t a = 0;
+  __uint32_t b = 0;
+  __uint32_t c = 0;
+  __uint32_t d = 0;
+  __uint32_t e = 0;
+  __uint32_t f = 0;
+  __uint32_t g = 0;
+  __uint32_t h = 0;
+
+
+};
 
 class sha256 {
 
