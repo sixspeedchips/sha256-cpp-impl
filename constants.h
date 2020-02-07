@@ -73,7 +73,8 @@ const u_int32_t K[] = {
     0x90befffa,
     0xa4506ceb,
     0xbef9a3f7,
-    0xc67178f2};
+    0xc67178f2
+};
 
 
 #endif //SHA256_CONSTANTS_H
