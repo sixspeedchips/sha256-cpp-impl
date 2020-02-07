@@ -30,7 +30,7 @@ int main(int argc, char **argv) {
   auto *padded_message = new std::vector<_ubit_512>();
   // process the raw input
   pad_message(buffer, padded_message);
-  print_message(padded_message);
+//  print_message(padded_message);
 //  std::cout<<padded_message->size() << std::endl;
   hashValues h = digest(padded_message);
   fmt::print("{:04x}", h.h_0);
@@ -156,8 +156,6 @@ hashValues digest(const std::vector<_ubit_512> *padded_message) {
     hashes.h_6 += vars.g;
     hashes.h_7 += vars.h;
   }
-
-
   return hashes;
 }
 
