@@ -8,8 +8,8 @@
 #include <cstdint>
 #include <vector>
 
-typedef struct _ubit_512 { __uint32_t word[16]; } _ubit_512;
-typedef struct mSchedule { __uint32_t word[64]; } mSchedule;
+typedef struct _ubit_512 { __uint32_t word[16] = {0}; } _ubit_512;
+typedef struct mSchedule { __uint32_t word[64] = {0}; } mSchedule;
 
 
 struct hashValues {
@@ -38,13 +38,16 @@ struct workingVar {
 class sha256 {
 
  private:
+  __uint32_t k;
   std::vector<unsigned char> buffer;
   std::vector<_ubit_512> padded_message;
   void pad_message();
+  void print_p_message();
+
 
 
  public:
-  sha256(const std::vector<unsigned char> &buffer);
+  explicit sha256(const std::vector<unsigned char> &buffer);
   hashValues digest();
 
 };

@@ -8,6 +8,7 @@
 
 static const u_int8_t Bytes_per_Int32 = 4;
 static const u_int8_t Byte_Size = 8;
+static const __uint16_t Block_Size_Bits = 512;
 
 static const u_int32_t K[] = {
     0x428a2f98,

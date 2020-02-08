@@ -4,6 +4,8 @@
 
 #include <vector>
 #include <sys/types.h>
+#include <iostream>
+#include <fmt/core.h>
 #include "sha256.h"
 #include "constants.h"
 #include "operations.h"
@@ -15,9 +17,15 @@ sha256::sha256(const std::vector<unsigned char> &buffer) {
 }
 void sha256::pad_message() {
   u_long cPt = 0;
+
   // while the buffer is not empty begin to build blocks
   // of the message to be padded
-  while (cPt < buffer.size()) {
+  __uint64_t l = buffer.size() * Byte_Size;
+
+  this->k = 448 - (l % Block_Size_Bits + 1);
+  std::cout << k << std::endl;
+
+  while (cPt < buffer.size()+1) {
     _ubit_512 block = _ubit_512();
     // each block is a 512 bit number
     // this is 8->uint32 numbers in an array
@@ -44,14 +52,14 @@ void sha256::pad_message() {
   // error here since a vector likely cannot
   // support a 2**64 bit byte array might need to re-impl
   // using file.seek to traverse the file
-//  std::cout << ((buffer.size() * 8 + 1 % 512) < 64) << std::endl;
-  if ((buffer.size() * Byte_Size + 1 % 512) < 64) {
+  if (k < 64) {
     _ubit_512 block{};
-    block.word[15] |= buffer.size() * Byte_Size;
+    block.word[15] |= (buffer.size() * Byte_Size);
     padded_message.push_back(block);
   } else {
-    padded_message.back().word[15] |= buffer.size() * Byte_Size;
+    padded_message.back().word[15] |= (buffer.size() * Byte_Size);
   }
+  print_p_message();
 }
 
 hashValues sha256::digest() {
@@ -106,4 +114,17 @@ hashValues sha256::digest() {
     hashes.h_7 += vars.h;
   }
   return hashes;
+}
+void sha256::print_p_message() {
+  u_int32_t count = 0;
+  for (_ubit_512 &block: padded_message) {
+    for (__uint32_t w: block.word) {
+      count++;
+      fmt::print("{:032b} ", w);
+//      if (++count % 2 == 0) {
+//        std::cout << std::endl;
+//      }
+    }
+    std::cout << std::endl << count << std::endl;
+  }
 }

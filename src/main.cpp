@@ -3,8 +3,6 @@
 #include <fstream>
 #include <vector>
 #include "sha256.h"
-#include "constants.h"
-#include "operations.h"
 
 
 void dispHash(const hashValues &h);
@@ -15,12 +13,13 @@ int main(int argc, char **argv) {
 
 //  std::ifstream input("../example.pdf", std::ios::binary);
 //  std::ifstream input("../test.txt", std::ios::binary);
-  std::ifstream input("../hello.txt", std::ios::binary);
-  // load the file into a vector as bytes
+//  std::ifstream input("../hello.txt", std::ios::binary);
+  std::ifstream input("../abc.txt", std::ios::binary);
+
   std::vector<unsigned char> buffer(std::istreambuf_iterator<char>(input), {});
+
   sha256 sha(buffer);
   dispHash(sha.digest());
-
   return 0;
 
 }
