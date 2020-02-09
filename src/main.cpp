@@ -14,24 +14,25 @@ int main(int argc, char **argv) {
 //  std::ifstream input("../example.pdf", std::ios::binary);
 //  std::ifstream input("../test.txt", std::ios::binary);
 //  std::ifstream input("../hello.txt", std::ios::binary);
-  std::ifstream input("../abc.txt", std::ios::binary);
+  if (argc > 1) {
+    std::ifstream input(argv[1], std::ios::binary);
+    std::vector<unsigned char>buffer(std::istreambuf_iterator<char>(input), {});
+    sha256 sha(buffer);
+    dispHash(sha.digest());
+  }
 
-  std::vector<unsigned char> buffer(std::istreambuf_iterator<char>(input), {});
-
-  sha256 sha(buffer);
-  dispHash(sha.digest());
   return 0;
 
 }
 void dispHash(const hashValues &h) {
-  fmt::print("{:04x}", h.h_0);
-  fmt::print("{:04x}", h.h_1);
-  fmt::print("{:04x}", h.h_2);
-  fmt::print("{:04x}", h.h_3);
-  fmt::print("{:04x}", h.h_4);
-  fmt::print("{:04x}", h.h_5);
-  fmt::print("{:04x}", h.h_6);
-  fmt::print("{:04x}", h.h_7);
+  fmt::print("{:08x}", h.h_0);
+  fmt::print("{:08x}", h.h_1);
+  fmt::print("{:08x}", h.h_2);
+  fmt::print("{:08x}", h.h_3);
+  fmt::print("{:08x}", h.h_4);
+  fmt::print("{:08x}", h.h_5);
+  fmt::print("{:08x}", h.h_6);
+  fmt::print("{:08x}", h.h_7);
   std::cout << std::endl;
 }
 

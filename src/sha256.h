@@ -38,18 +38,17 @@ struct workingVar {
 class sha256 {
 
  private:
-  __uint32_t k;
+  __uint32_t k = 0;
+  __uint64_t l = 0;
   std::vector<unsigned char> buffer;
   std::vector<_ubit_512> padded_message;
   void pad_message();
   void print_p_message();
 
 
-
  public:
   explicit sha256(const std::vector<unsigned char> &buffer);
   hashValues digest();
-
 };
 
 

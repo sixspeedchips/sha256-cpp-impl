@@ -13,6 +13,8 @@
 sha256::sha256(const std::vector<unsigned char> &buffer) {
   this->buffer = buffer;
   this->padded_message = std::vector<_ubit_512>();
+  this->l = buffer.size() * Byte_Size;
+  this->k = 448 - (l % Block_Size_Bits + 1);
   this->pad_message();
 }
 void sha256::pad_message() {
@@ -20,10 +22,7 @@ void sha256::pad_message() {
 
   // while the buffer is not empty begin to build blocks
   // of the message to be padded
-  __uint64_t l = buffer.size() * Byte_Size;
 
-  this->k = 448 - (l % Block_Size_Bits + 1);
-  std::cout << k << std::endl;
 
   while (cPt < buffer.size()+1) {
     _ubit_512 block = _ubit_512();
@@ -54,12 +53,14 @@ void sha256::pad_message() {
   // using file.seek to traverse the file
   if (k < 64) {
     _ubit_512 block{};
-    block.word[15] |= (buffer.size() * Byte_Size);
+    block.word[14] |= (l >> 32u);
+    block.word[15] |= l;
     padded_message.push_back(block);
   } else {
-    padded_message.back().word[15] |= (buffer.size() * Byte_Size);
+
+    padded_message.back().word[14] |= l>>32u;
+    padded_message.back().word[15] |= l;
   }
-  print_p_message();
 }
 
 hashValues sha256::digest() {
